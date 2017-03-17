@@ -32,7 +32,7 @@ def execute(filepath):
             if name.endswith("surefire-report.html"):
                 client.upload_file(os.path.join(filepath, rootdir, name),
                                    bucket,
-                                   "surefire-report-" + version + num + ".html")
+                                   "surefire-report-" + version + str(num) + ".html")
 
     print(json.dumps(
         {"version": {"version": version}}))
