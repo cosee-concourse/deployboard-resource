@@ -34,6 +34,7 @@ def execute(filepath):
                 client.upload_file(os.path.join(filepath, rootdir, name),
                                    bucket,
                                    "surefire-report-" + version + "-" + str(num) + ".html")
+                num += 1
 
     print(json.dumps(
         {"version": {"version": version}}))
