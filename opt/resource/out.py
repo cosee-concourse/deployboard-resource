@@ -29,12 +29,11 @@ def execute(filepath):
 
     for rootdir, dirs, files in os.walk(os.path.join(filepath, directory)):
         for name in files:
-            common.log(name)
             if name.endswith("surefire-report.html"):
                 client.upload_file(os.path.join(filepath, rootdir, name),
                                    bucket,
                                    "surefire-report-" + version + "-" + str(num) + ".html")
-                common.log(num)
+                common.log("Uploading" + "surefire-report-" + version + "-" + str(num) + ".html")
                 num = num + 1
 
     print(json.dumps(
