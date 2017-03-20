@@ -56,6 +56,9 @@ out_schema = {
                     "directory": {
                         "type": "string"
                     },
+                    "step": {
+                        "type": "string"
+                    },
                 },
                 "required": [
                   "version",
