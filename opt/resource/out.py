@@ -39,7 +39,8 @@ def execute(filepath):
                 num = num + 1
 
     print(json.dumps(
-        {"version": {"version": version}}))
+        {"version": {"version": version},
+         "metadata": {"bucket": bucket}}))
 
 
 
