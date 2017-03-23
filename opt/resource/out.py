@@ -33,7 +33,8 @@ def execute(filepath):
             if name.endswith("surefire-report.html"):
                 client.upload_file(os.path.join(filepath, rootdir, name),
                                    bucket,
-                                   pipeline_step + "-surefire-report-" + version + "-" + str(num) + ".html")
+                                   "test-surefire-report-" + pipeline_step +
+                                   "-version-" + version + "-" + str(num) + ".html")
                 common.log("Uploading" + pipeline_step + "-surefire-report-" + version + "-" + str(num) + ".html")
                 num = num + 1
 
