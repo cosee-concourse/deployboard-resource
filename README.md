@@ -1,19 +1,27 @@
-# Slack Upload Resource
+# Deployboard Resource
  
 [![Docker Repository on Quay](https://quay.io/repository/cosee-concourse/slack-upload-resource/status "Docker Repository on Quay")](https://quay.io/repository/cosee-concourse/slack-upload-resource)
 
-Generates names for various services using a prefix and the current version.
+Finds html surefire reports and uploads the to S3.
 
 ## Source Configuration
 
-* `SlACK_BOT_TOKEN`: *Required* Token for Slack Bot that should be used to post messages
+* `AWS_ACCESS_KEY`: *Required* Access Key for the AWS Account the S3 Bucket belongs to
+* `AWS_SECRET_KEY`: *Required* Secret Key for the AWS Account the S3 Bucket belongs to
 
 ## Behavior
 
 ### `out`: Post messages to Slack
 
-* Posts a message to slack based on the command provided. To give better information on the state of the pipeline 
-  the [semver](http://semver.org/) version is used.
+* Uploads html reports to an S3 bucket.
+  
+#### Parameters
+ 
+* `version`: *Required* Filepath to `semver` version file
+* `directory`: *Required* The directory that will be searched for surefire reports
+* `bucket`: *Required* The name of the bucket to upload the reports to
+* `step`: *Required* The current pipeline step
+
   
 ### `check`: no-op
 
@@ -23,34 +31,23 @@ Generates names for various services using a prefix and the current version.
 
 * Simply returns the provided version
 
-
-#### Parameters
- 
-* `version`: *Required* Filepath to `semver` version file
-* `command`: *Required* The type of message slack is supposed to send. Valid Arguments are `success`, `failure` and
-  `report`.
-* `directory`: *Required if command is `report`* Location of the html reports
-* `channel`: *Required* The channel for the message to appear in
-* `pipeline_step`: *Required* The current step of the pipeline so that the slack message can
-   include at which stage of the pipeline the error occurred.
-
-
 ## Example Configuration
 
 ### Resource Type
 ``` yaml
-- name: slack-upload
+- name: deployboard-resource
   type: docker-image
   source:
-    repository: quay.io/cosee-concourse/slack-upload-resource
+    repository: quay.io/cosee-concourse/deployboard-resource
 ```
 ### Resource
 
 ``` yaml
-- name: slack
-  type: slack-upload
+- name: deployboard
+  type: deployboard-resource
   source: 
-    SLACK_BOT_TOKEN: xoxb-1345678903412-xxxxxxxxxxxxxxxxxxxxxxxxx
+    AWS_ACCESS_KEY: AKAIMFHEFIWNL43579HFKFEHIEUFH384759
+    AWS_SECRET_KEY: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
 ### Plan
@@ -59,15 +56,7 @@ Generates names for various services using a prefix and the current version.
   - put: slack
     params: 
       version: version/number
-      command: report
       directory: junit
-      channel: bot-channel
-```
-``` yaml
-  - put: slack
-    params: 
-      version: version/number
-      command: failure
-      channel: bot-channel
-      pipeline_step: build
+      bucket: test-bucket
+      step: build
 ```
