@@ -39,7 +39,7 @@ def execute(filepath):
 
     print(json.dumps(
         {"version": {"version": version},
-         "metadata": [{"bucket": bucket}]}))
+         "metadata": [{"name": "bucket", "value": bucket}]}))
 
 
 
