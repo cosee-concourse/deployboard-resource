@@ -1,6 +1,6 @@
 # Deployboard Resource
  
-[![Docker Repository on Quay](https://quay.io/repository/cosee-concourse/slack-upload-resource/status "Docker Repository on Quay")](https://quay.io/repository/cosee-concourse/slack-upload-resource)
+[![Docker Repository on Quay](https://quay.io/repository/cosee-concourse/deployboard-resource/status "Docker Repository on Quay")](https://quay.io/repository/cosee-concourse/deployboard-resource)
 
 Finds html surefire reports and uploads the to S3.
 
