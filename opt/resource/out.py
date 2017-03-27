@@ -17,7 +17,6 @@ def execute(filepath):
 
     bucket = jsonutil.get_params_value(payload, "bucket")
     directory = jsonutil.get_params_value(payload, "directory")
-    pipeline_step = jsonutil.get_params_value(payload, "step")
     version = open(os.path.join(filepath, jsonutil.get_params_value(payload, "version"))).read()
 
     client = boto3.client(
@@ -33,8 +32,10 @@ def execute(filepath):
             if name.endswith("surefire-report.html"):
                 client.upload_file(os.path.join(filepath, rootdir, name),
                                    bucket,
-                                   pipeline_step + "-surefire-report-" + version + "-" + str(num) + ".html")
-                common.log("Uploading" + pipeline_step + "-surefire-report-" + version + "-" + str(num) + ".html")
+                                   os.environ["BUILD_PIPELINE_NAME"] + "-" + os.environ["BUILD_JOB_NAME"]
+                                   + "-surefire-report-" + version + "-" + str(num) + ".html")
+                common.log(os.environ["BUILD_PIPELINE_NAME"] + "-" + os.environ["BUILD_JOB_NAME"] + "-surefire-report-"
+                           + version + "-" + str(num) + ".html")
                 num = num + 1
 
     print(json.dumps(
