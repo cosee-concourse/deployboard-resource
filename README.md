@@ -20,8 +20,6 @@ Finds html surefire reports and uploads the to S3.
 * `version`: *Required* Filepath to `semver` version file
 * `directory`: *Required* The directory that will be searched for surefire reports
 * `bucket`: *Required* The name of the bucket to upload the reports to
-* `step`: *Required* The current pipeline step
-
   
 ### `check`: no-op
 
@@ -58,5 +56,4 @@ Finds html surefire reports and uploads the to S3.
       version: version/number
       directory: junit
       bucket: test-bucket
-      step: build
 ```
