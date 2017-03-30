@@ -1,5 +1,6 @@
 # Deployboard Resource
  
+[![Build Status](https://travis-ci.org/cosee-concourse/deployboard-resource.svg?branch=master)](https://travis-ci.org/cosee-concourse/deployboard-resource)
 [![Docker Repository on Quay](https://quay.io/repository/cosee-concourse/deployboard-resource/status "Docker Repository on Quay")](https://quay.io/repository/cosee-concourse/deployboard-resource)
 
 Finds html surefire reports and uploads the to S3.
